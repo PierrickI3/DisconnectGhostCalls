@@ -16,7 +16,9 @@ This tool should *ONLY* be used when absolutely required.
 
 * Only works for calls (voice conversations)
 
-## Requirements
+## Installation
+
+### Requirements
 
 * Windows 7+
 * [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
@@ -24,8 +26,12 @@ This tool should *ONLY* be used when absolutely required.
 * Access to PureCloud (https://*.mypurecloud.*)
 * An OAuth Client Credentials client id & client secret
 
+
 ## User Guide
 
+* Setup
+  * Download the [setup](https://github.com/PierrickI3/DisconnectGhostCalls/releases/download/1.0/PC.Ghost.Call.Tool.Setup.msi) file and follow the wizard
+  * Double-click on the Desktop icon to get started
 * Logging in
   * Open the app
   * Select your environment
