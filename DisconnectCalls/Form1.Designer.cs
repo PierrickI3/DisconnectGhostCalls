@@ -68,6 +68,7 @@
 			this.txtAnalyticsConversationId = new System.Windows.Forms.TextBox();
 			this.lblAnalyticsConversationId = new System.Windows.Forms.Label();
 			this.btnSaveLog = new System.Windows.Forms.Button();
+			this.chkVerboseLogging = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.gbEdges.SuspendLayout();
 			this.gbTroubleshooting.SuspendLayout();
@@ -485,11 +486,22 @@
 			this.btnSaveLog.UseVisualStyleBackColor = true;
 			this.btnSaveLog.Click += new System.EventHandler(this.btnSaveLog_Click);
 			// 
+			// chkVerboseLogging
+			// 
+			this.chkVerboseLogging.AutoSize = true;
+			this.chkVerboseLogging.Location = new System.Drawing.Point(626, 330);
+			this.chkVerboseLogging.Name = "chkVerboseLogging";
+			this.chkVerboseLogging.Size = new System.Drawing.Size(106, 17);
+			this.chkVerboseLogging.TabIndex = 15;
+			this.chkVerboseLogging.Text = "Verbose Logging";
+			this.chkVerboseLogging.UseVisualStyleBackColor = true;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(906, 621);
+			this.Controls.Add(this.chkVerboseLogging);
 			this.Controls.Add(this.btnSaveLog);
 			this.Controls.Add(this.gbAgents);
 			this.Controls.Add(this.gbTestPhantomCall);
@@ -514,6 +526,7 @@
 			this.gbTestPhantomCall.ResumeLayout(false);
 			this.gbTestPhantomCall.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -558,6 +571,7 @@
 		private System.Windows.Forms.Label lblAnalyticsConversationId;
 		private System.Windows.Forms.LinkLabel linkConversation2;
 		private System.Windows.Forms.Button btnSaveLog;
+		private System.Windows.Forms.CheckBox chkVerboseLogging;
 	}
 }
 
