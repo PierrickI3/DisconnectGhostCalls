@@ -6,6 +6,7 @@ using PureCloudPlatform.Client.V2.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -36,8 +37,6 @@ namespace DisconnectCalls
 		{
 			InitializeComponent();
 
-			AddLog("Initializing...");
-
 			cmbEnvironment.SelectedIndex = 0;
 			dtAnalyticsStart.Value = DateTime.Now.AddDays(-1);
 			dtAnalyticsEnd.Value = DateTime.Now;
@@ -48,7 +47,8 @@ namespace DisconnectCalls
 				Disconnect();
 			};
 
-			AddLog("Ready. Please Login first.");
+			AddLog("Ready.");
+			AddLog("Select your environment, enter a client id & secret and click on 'Login' to get started.");
 		}
 
 		#endregion
@@ -409,6 +409,28 @@ namespace DisconnectCalls
 			txtConversationId.Text = selectedConversationId;
 		}
 
+		private void btnSaveLog_Click(object sender, EventArgs e)
+		{
+			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+			{
+				saveFileDialog.Title = "Save Log File";
+				saveFileDialog.Filter = "log files (*.log)|*.log|All files (*.*)|*.*";
+				saveFileDialog.FilterIndex = 2;
+				saveFileDialog.RestoreDirectory = true;
+
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					var streamWriter = new StreamWriter(saveFileDialog.FileName);
+					foreach (var item in lstLog.Items)
+					{
+						streamWriter.WriteLine(item.ToString());
+					}
+					streamWriter.Close();
+					AddLog($"Logs saved in {saveFileDialog.FileName}");
+				}
+			}
+		}
+
 		#endregion
 
 		#region Troubleshooting
@@ -553,5 +575,6 @@ namespace DisconnectCalls
 		}
 
 		#endregion
+
 	}
 }

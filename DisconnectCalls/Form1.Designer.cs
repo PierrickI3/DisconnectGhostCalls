@@ -67,6 +67,7 @@
 			this.linkConversation2 = new System.Windows.Forms.LinkLabel();
 			this.txtAnalyticsConversationId = new System.Windows.Forms.TextBox();
 			this.lblAnalyticsConversationId = new System.Windows.Forms.Label();
+			this.btnSaveLog = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.gbEdges.SuspendLayout();
 			this.gbTroubleshooting.SuspendLayout();
@@ -118,10 +119,10 @@
 			this.cmbEnvironment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbEnvironment.FormattingEnabled = true;
 			this.cmbEnvironment.Items.AddRange(new object[] {
-            "mypurecloud.de",
-            "mypurecloud.ie",
             "mypurecloud.com",
             "mypurecloud.com.au",
+            "mypurecloud.de",
+            "mypurecloud.ie",
             "mypurecloud.jp"});
 			this.cmbEnvironment.Location = new System.Drawing.Point(84, 17);
 			this.cmbEnvironment.Name = "cmbEnvironment";
@@ -473,11 +474,23 @@
 			this.lblAnalyticsConversationId.TabIndex = 9;
 			this.lblAnalyticsConversationId.Text = "Conversation Id:";
 			// 
+			// btnSaveLog
+			// 
+			this.btnSaveLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSaveLog.Location = new System.Drawing.Point(738, 326);
+			this.btnSaveLog.Name = "btnSaveLog";
+			this.btnSaveLog.Size = new System.Drawing.Size(81, 23);
+			this.btnSaveLog.TabIndex = 14;
+			this.btnSaveLog.Text = "Save Log";
+			this.btnSaveLog.UseVisualStyleBackColor = true;
+			this.btnSaveLog.Click += new System.EventHandler(this.btnSaveLog_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(906, 621);
+			this.Controls.Add(this.btnSaveLog);
 			this.Controls.Add(this.gbAgents);
 			this.Controls.Add(this.gbTestPhantomCall);
 			this.Controls.Add(this.gbTroubleshooting);
@@ -544,6 +557,7 @@
 		private System.Windows.Forms.TextBox txtAnalyticsConversationId;
 		private System.Windows.Forms.Label lblAnalyticsConversationId;
 		private System.Windows.Forms.LinkLabel linkConversation2;
+		private System.Windows.Forms.Button btnSaveLog;
 	}
 }
 
