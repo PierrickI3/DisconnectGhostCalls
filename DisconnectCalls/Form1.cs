@@ -24,6 +24,8 @@ namespace DisconnectCalls
 		TokensApi tokensApi = null;
 		UsersApi usersApi = null;
 
+		Timer timer = new Timer();
+
 		List<AnalyticsConversation> conversationsToDisconnect = new List<AnalyticsConversation>();
 
 		int _LoggedInAgents = 0;
@@ -96,7 +98,6 @@ namespace DisconnectCalls
 				// Get Agents Stats
 				AddLog("Starting timer for monitoring agent status", true);
 				StartMonitoringAgents();
-				var timer = new Timer();
 				timer.Interval = 5000;
 				timer.Tick += (object timerSender, EventArgs eventArgs) => { StartMonitoringAgents(); };
 				timer.Start();
@@ -106,6 +107,7 @@ namespace DisconnectCalls
 			{
 				AddLog($"Error in btnConnect_Click: {ex.Message}");
 				AddLog($"Detailled error: {ex}", true);
+				timer.Stop();
 				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				btnConnect.Enabled = true;
 				btnDisconnect.Enabled = false;
@@ -125,6 +127,7 @@ namespace DisconnectCalls
 		{
 			if (!btnDisconnect.Enabled) { return; }
 			AddLog("Disconnecting...");
+			timer.Stop();
 			tokensApi.DeleteTokensMe();
 			btnConnect.Enabled = true;
 			btnDisconnect.Enabled = false;
@@ -590,6 +593,5 @@ namespace DisconnectCalls
 		}
 
 		#endregion
-
 	}
 }
