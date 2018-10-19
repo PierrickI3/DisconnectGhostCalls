@@ -1,6 +1,6 @@
 # PureCloud Disconnect Ghost Calls
 
-This tool is used to disconnect *Ghost Calls* (calls that are stuck due to a critical failure in PureCloud).
+This tool is used to disconnect *Ghost Calls* (calls that might get stuck due to PureCloud failing to reach an edge).
 This tool should *ONLY* be used when absolutely required.
 
 > A `Ghost Call` is a call that is still active (showing as connected in PureCloud) while its edge is offline (disconnected from the network)
