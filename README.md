@@ -23,7 +23,7 @@ This tool should *ONLY* be used when absolutely required.
 * Windows 7+
 * [.Net Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
 * Admin rights to your local machine
-* Access to PureCloud (https://*.mypurecloud.*)
+* Access to PureCloud (https://xxx.mypurecloud.xx)
 * An OAuth Client Credentials client id & client secret
 
 
