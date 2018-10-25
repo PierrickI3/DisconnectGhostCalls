@@ -219,27 +219,27 @@ namespace DisconnectCalls
 					return; // Conversation is finished, ignore
 				}
 
-				//// Is this a phantom call?
-				//var currentConversation = GetSingleConversation(conversation.ConversationId);
-				//if (currentConversation == null) { continue; }
-				//if (TestPhantomCall(currentConversation))
-				//{
-				//	// Add to Disconnect List
-				//	conversationsToDisconnect.Add(conversation);
-				//	AddLog($"  ==> Need to disconnect Conversation: {conversation.ConversationId}");
-				//}
+				// Is this a phantom call?
+				var currentConversation = GetSingleAnalyticsConversation(conversation.ConversationId);
+				if (currentConversation == null) { continue; }
+				if (TestPhantomCall(currentConversation))
+				{
+					// Add to Disconnect List
+					//conversationsToDisconnect.Add(conversation);
+					AddLog($"  ==> Need to disconnect Conversation: {conversation.ConversationId} ?");
+					// Get last participant
+					var lastParticipant = conversation.Participants[conversation.Participants.Count - 1];
 
-				//// Get last participant
-				//var lastParticipant = conversation.Participants[conversation.Participants.Count - 1];
+					// Get latest session with an Edge Id that matches selected edge
+					var lastSession = lastParticipant.Sessions.LastOrDefault(s => (s.MediaType == AnalyticsSession.MediaTypeEnum.Voice && !String.IsNullOrEmpty(s.EdgeId)));
+					if (lastSession != null && lastSession.EdgeId.Equals(currentEdge.Id))
+					{
+						// Add to Disconnect List
+						conversationsToDisconnect.Add(conversation);
+						AddLog($"  ==> Disconnect! (Conversation: {conversation.ConversationId}, Participant: {lastParticipant.ParticipantName} ({lastParticipant.Purpose}), Media Type: {lastSession.MediaType}");
+					}
+				}
 
-				//// Get latest session with an Edge Id that matches selected edge
-				//var lastSession = lastParticipant.Sessions.LastOrDefault(s => (s.MediaType == AnalyticsSession.MediaTypeEnum.Voice && !String.IsNullOrEmpty(s.EdgeId)));
-				//if (lastSession != null && lastSession.EdgeId.Equals(currentEdge.Id))
-				//{
-				//	// Add to Disconnect List
-				//	conversationsToDisconnect.Add(conversation);
-				//	AddLog($"  ==> Disconnect! (Conversation: {conversation.ConversationId}, Participant: {lastParticipant.ParticipantName} ({lastParticipant.Purpose}), Media Type: {lastSession.MediaType}");
-				//}
 			}
 			AddLog($"Found {conversationsToDisconnect.Count} conversations to disconnect on {currentEdge.Name}");
 		}
@@ -264,6 +264,7 @@ namespace DisconnectCalls
 					}
 				}
 			}
+			conversationsToDisconnect.Clear();
 		}
 
 		private List<AnalyticsConversation> GetActiveConversations()
@@ -380,6 +381,8 @@ namespace DisconnectCalls
 				AddLog($"Disconnecting {conversationId}...");
 				var result = await conversationsApi.PostConversationDisconnectAsync(conversationId);
 				AddLog($"Conversation {conversationId} disconnected: {result}");
+				var currentDisconnectedCallsValue = Convert.ToInt32(lblDisconnectedCallsValue.Text) + 1;
+				lblDisconnectedCallsValue.Text = currentDisconnectedCallsValue.ToString();
 			}
 			catch (Exception ex)
 			{
