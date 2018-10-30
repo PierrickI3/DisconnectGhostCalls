@@ -6,6 +6,7 @@ using PureCloudPlatform.Client.V2.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -48,7 +49,7 @@ namespace DisconnectCalls
 				Disconnect();
 			};
 
-			AddLog("Ready. Please Login first.");
+			AddLog("Ready. Please enter your Client Id and Client Secret then click on Login.");
 		}
 
 		#endregion
@@ -70,14 +71,17 @@ namespace DisconnectCalls
 				Configuration.Default.ApiClient.RestClient.BaseUrl = new Uri($"https://api.{cmbEnvironment.SelectedItem.ToString()}");
 				var accessTokenInfo = Configuration.Default.ApiClient.PostToken(txtClientId.Text, txtClientSecret.Text);
 				Configuration.Default.AccessToken = accessTokenInfo.AccessToken;
-				AddLog($"Connected. Access Token: {accessTokenInfo.AccessToken}");
+				AddLog($"Connected.");
+				AddLog($"Access Token: {accessTokenInfo.AccessToken}", true);
 
 				// Get APIs
+				AddLog("Initializing APIs...", true);
 				analyticsApi = new AnalyticsApi();
 				routingApi = new RoutingApi();
 				conversationsApi = new ConversationsApi();
 				tokensApi = new TokensApi();
 				telephonyProvidersEdgeApi = new TelephonyProvidersEdgeApi();
+				AddLog("Finished initializing APIs...", true);
 
 				// Update Controls
 				btnConnect.Enabled = false;
@@ -91,15 +95,18 @@ namespace DisconnectCalls
 				GetEdges();
 
 				// Get Agents Stats
+				AddLog("Starting timer for monitoring agent status", true);
 				StartMonitoringAgents();
 				var timer = new Timer();
 				timer.Interval = 5000;
 				timer.Tick += (object timerSender, EventArgs eventArgs) => { StartMonitoringAgents(); };
 				timer.Start();
+				AddLog("Timer started", true);
 			}
 			catch (Exception ex)
 			{
 				AddLog($"Error in btnConnect_Click: {ex.Message}");
+				AddLog($"Detailled error: {ex}", true);
 				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				btnConnect.Enabled = true;
 				btnDisconnect.Enabled = false;
@@ -148,6 +155,7 @@ namespace DisconnectCalls
 			var pageNumber = 1;
 			var pageCount = 1;
 
+			AddLog("Getting agents routing status", true);
 			do
 			{
 				var userEntityListing = usersApi.GetUsers(100, pageNumber++, null, null, new List<string>() { "routingStatus", "presence" });
@@ -157,6 +165,7 @@ namespace DisconnectCalls
 				_NotRespondingAgents += userEntityListing.Entities.Count(u => u.RoutingStatus.Status == RoutingStatus.StatusEnum.NotResponding);
 			} while (pageNumber <= pageCount);
 
+			AddLog($"Logged in agents: {_LoggedInAgents}, Not Responding Agents: {_NotRespondingAgents}", true);
 			lblLoggedInAgentsValue.Text = _LoggedInAgents.ToString();
 			lblNotRespondingAgentsValue.Text = _NotRespondingAgents.ToString();
 		}
@@ -169,6 +178,7 @@ namespace DisconnectCalls
 		{
 			try
 			{
+				AddLog("Clearing current edges...", true);
 				cmbEdges.Items.Clear();
 				var edgeEntityListing = telephonyProvidersEdgeApi.GetTelephonyProvidersEdges();
 				foreach (var edge in edgeEntityListing.Entities)
@@ -180,6 +190,7 @@ namespace DisconnectCalls
 			catch (Exception ex)
 			{
 				AddLog($"Error in GetQueues: {ex.Message}");
+				AddLog($"Detailled error: {ex}", true);
 				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -192,6 +203,7 @@ namespace DisconnectCalls
 		private void cmbEdges_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			currentEdge = (EdgeInfo)((ComboBox)sender).SelectedItem;
+			AddLog($"Selected Edge: {currentEdge.Id}, {currentEdge.Name}, {currentEdge.Online}", true);
 		}
 
 		#endregion
@@ -211,12 +223,14 @@ namespace DisconnectCalls
 
 			// Get all active calls conversations
 			var conversations = GetActiveConversations();
+			AddLog($"Retrieved {conversations.Count} active conversations. Checking each one of them...", true);
 			foreach (var conversation in conversations)
 			{
 				//Last participant with edge id in session that matches should be disconnected
 				if (conversation.ConversationEnd != null)
 				{
-					return; // Conversation is finished, ignore
+					AddLog($"Conversation {conversation.ConversationId} is ended ({conversation.ConversationEnd}). Ignoring...", true);
+					continue; // Conversation is finished, ignore
 				}
 
 				// Is this a phantom call?
@@ -236,7 +250,7 @@ namespace DisconnectCalls
 					{
 						// Add to Disconnect List
 						conversationsToDisconnect.Add(conversation);
-						AddLog($"  ==> Disconnect! (Conversation: {conversation.ConversationId}, Participant: {lastParticipant.ParticipantName} ({lastParticipant.Purpose}), Media Type: {lastSession.MediaType}");
+						AddLog($"  This conversation needs to be disconnected ==> Id: {conversation.ConversationId}, Participant: {lastParticipant.ParticipantName} ({lastParticipant.Purpose}), Media Type: {lastSession.MediaType}");
 					}
 				}
 
@@ -254,7 +268,7 @@ namespace DisconnectCalls
 
 			if (MessageBox.Show($"Found {conversationsToDisconnect.Count} conversations to disconnect. Disconnect them now?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
 			{
-				//Check if the selected edge is STILL offline
+				AddLog("Checking if selected edge is still offline...", true);
 				GetEdges();
 				if (((EdgeInfo)cmbEdges.SelectedItem).Online != true)
 				{
@@ -269,12 +283,16 @@ namespace DisconnectCalls
 
 		private List<AnalyticsConversation> GetActiveConversations()
 		{
+			AddLog("Getting active conversations...", true);
 			var conversations = new List<AnalyticsConversation>();
 			var pageNumber = 1;
 			AnalyticsConversationQueryResponse analyticsConversationQueryResponse = null;
 
 			var dateTimeNowISO = DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffZ");
 			var dateTimeNowISOMinus1Day = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffZ");
+
+			AddLog($"Start Date/Time: {dateTimeNowISOMinus1Day}", true);
+			AddLog($"End Date/Time: {dateTimeNowISO}", true);
 
 			do
 			{
@@ -346,9 +364,11 @@ namespace DisconnectCalls
 				};
 
 				analyticsConversationQueryResponse = analyticsApi.PostAnalyticsConversationsDetailsQuery(body);
+				AddLog($"Got response: {analyticsConversationQueryResponse.ToString()}", true);
 
 				if (analyticsConversationQueryResponse.Conversations != null)
 				{
+					AddLog($"Got {analyticsConversationQueryResponse.Conversations.Count} conversations", true);
 					foreach (var analyticsConversation in analyticsConversationQueryResponse.Conversations)
 					{
 						conversations.Add(analyticsConversation);
@@ -365,11 +385,14 @@ namespace DisconnectCalls
 			Conversation conversation = null;
 			try
 			{
+				AddLog($"Getting a single conversation: {conversationId}", true);
 				conversation = conversationsApi.GetConversation(conversationId);
+				AddLog($"Conversation: {conversation.ToString()}", true);
 			}
 			catch (Exception ex)
 			{
 				AddLog($"Error while getting conversation {conversationId}: {ex.Message}");
+				AddLog($"Detailled error: {ex}", true);
 			}
 			return conversation;
 		}
@@ -387,6 +410,7 @@ namespace DisconnectCalls
 			catch (Exception ex)
 			{
 				AddLog($"Error while disconnecting {conversationId}: {ex.Message}");
+				AddLog($"Detailled error: {ex}", true);
 			}
 		}
 
@@ -394,8 +418,9 @@ namespace DisconnectCalls
 
 		#region Log
 
-		private void AddLog(string message)
+		private void AddLog(string message, bool verbose = false)
 		{
+			if (verbose && !chkVerboseLogging.Checked) { return; }
 			lstLog.Items.Add($"{DateTime.Now} {message}");
 		}
 
@@ -410,6 +435,29 @@ namespace DisconnectCalls
 			var selectedConversationId = selectedString.Substring(selectedString.IndexOf("(Conversation: ") + "(Conversation: ".Length, 36);
 			Clipboard.SetText(selectedConversationId);
 			txtConversationId.Text = selectedConversationId;
+			AddLog($"Conversation id {selectedConversationId} copied to the conversation id textboxes");
+		}
+
+		private void btnSaveLog_Click(object sender, EventArgs e)
+		{
+			using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+			{
+				saveFileDialog.Title = "Save Log File";
+				saveFileDialog.Filter = "log files (*.log)|*.log|All files (*.*)|*.*";
+				saveFileDialog.FilterIndex = 2;
+				saveFileDialog.RestoreDirectory = true;
+
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					var streamWriter = new StreamWriter(saveFileDialog.FileName);
+					foreach (var item in lstLog.Items)
+					{
+						streamWriter.WriteLine(item.ToString());
+					}
+					streamWriter.Close();
+					AddLog($"Logs saved in {saveFileDialog.FileName}");
+				}
+			}
 		}
 
 		#endregion
@@ -421,8 +469,10 @@ namespace DisconnectCalls
 			if (String.IsNullOrEmpty(txtConversationId.Text)) { return; }
 			try
 			{
+				AddLog($"Getting conversation details for {txtConversationId.Text}", true);
 				var conversation = conversationsApi.GetConversation(txtConversationId.Text);
 				var jsonConversation = JsonConvert.SerializeObject(conversation, Formatting.Indented);
+				AddLog($"Conversation {txtConversationId.Text} details: {jsonConversation}", true);
 
 				var displayConversation = new DisplayConversation(jsonConversation);
 				displayConversation.ShowDialog();
@@ -430,6 +480,7 @@ namespace DisconnectCalls
 			catch (Exception ex)
 			{
 				AddLog($"Error while getting conversation {txtConversationId.Text}: {ex.Message}");
+				AddLog($"Detailled error: {ex}", true);
 			}
 		}
 
@@ -448,9 +499,14 @@ namespace DisconnectCalls
 			AnalyticsConversationQueryResponse analyticsConversationQueryResponse = null;
 
 			// Find conversation by id
+			AddLog($"Getting a single Analytics Conversation: {conversationId}", true);
+
+			var interval = $"{dtAnalyticsStart.Value.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffZ")}/{dtAnalyticsEnd.Value.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffZ")}";
+			AddLog($"Interval: {interval}", true);
+
 			var body = new ConversationQuery()
 			{
-				Interval = $"{dtAnalyticsStart.Value.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffZ")}/{dtAnalyticsEnd.Value.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffZ")}",
+				Interval = interval,
 				ConversationFilters = new List<AnalyticsQueryFilter>()
 				{
 					new AnalyticsQueryFilter(
@@ -484,6 +540,7 @@ namespace DisconnectCalls
 			analyticsConversationQueryResponse = analyticsApi.PostAnalyticsConversationsDetailsQuery(body);
 			if (analyticsConversationQueryResponse.Conversations != null && analyticsConversationQueryResponse.Conversations.Count > 0)
 			{
+				AddLog($"Got {analyticsConversationQueryResponse.Conversations.Count} analytics conversation(s)", true);
 				return analyticsConversationQueryResponse.Conversations[0];
 			} else 
 			{
@@ -556,5 +613,6 @@ namespace DisconnectCalls
 		}
 
 		#endregion
+
 	}
 }

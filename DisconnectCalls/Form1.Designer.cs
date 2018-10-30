@@ -70,6 +70,8 @@
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.lblDisconnectedCallsValue = new System.Windows.Forms.Label();
 			this.lblDisconnectedCalls = new System.Windows.Forms.Label();
+			this.btnSaveLog = new System.Windows.Forms.Button();
+			this.chkVerboseLogging = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.gbEdges.SuspendLayout();
 			this.gbTroubleshooting.SuspendLayout();
@@ -88,12 +90,9 @@
 			this.groupBox1.Controls.Add(this.lblClientSecret);
 			this.groupBox1.Controls.Add(this.txtClientId);
 			this.groupBox1.Controls.Add(this.lblClientId);
-			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.groupBox1.Location = new System.Drawing.Point(0, 0);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.groupBox1.Location = new System.Drawing.Point(0, 22);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-			this.groupBox1.Size = new System.Drawing.Size(1812, 246);
+			this.groupBox1.Size = new System.Drawing.Size(313, 128);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "PureCloud Settings";
@@ -101,10 +100,9 @@
 			// btnDisconnect
 			// 
 			this.btnDisconnect.Enabled = false;
-			this.btnDisconnect.Location = new System.Drawing.Point(458, 185);
-			this.btnDisconnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnDisconnect.Location = new System.Drawing.Point(229, 96);
 			this.btnDisconnect.Name = "btnDisconnect";
-			this.btnDisconnect.Size = new System.Drawing.Size(150, 44);
+			this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
 			this.btnDisconnect.TabIndex = 7;
 			this.btnDisconnect.Text = "Logout";
 			this.btnDisconnect.UseVisualStyleBackColor = true;
@@ -112,10 +110,9 @@
 			// 
 			// btnConnect
 			// 
-			this.btnConnect.Location = new System.Drawing.Point(168, 185);
-			this.btnConnect.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnConnect.Location = new System.Drawing.Point(84, 96);
 			this.btnConnect.Name = "btnConnect";
-			this.btnConnect.Size = new System.Drawing.Size(150, 44);
+			this.btnConnect.Size = new System.Drawing.Size(75, 23);
 			this.btnConnect.TabIndex = 6;
 			this.btnConnect.Text = "Login";
 			this.btnConnect.UseVisualStyleBackColor = true;
@@ -131,58 +128,50 @@
             "mypurecloud.com",
             "mypurecloud.com.au",
             "mypurecloud.jp"});
-			this.cmbEnvironment.Location = new System.Drawing.Point(168, 33);
-			this.cmbEnvironment.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.cmbEnvironment.Location = new System.Drawing.Point(84, 17);
 			this.cmbEnvironment.Name = "cmbEnvironment";
-			this.cmbEnvironment.Size = new System.Drawing.Size(436, 33);
+			this.cmbEnvironment.Size = new System.Drawing.Size(220, 21);
 			this.cmbEnvironment.TabIndex = 5;
 			// 
 			// lblEnvironment
 			// 
 			this.lblEnvironment.AutoSize = true;
-			this.lblEnvironment.Location = new System.Drawing.Point(18, 38);
-			this.lblEnvironment.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblEnvironment.Location = new System.Drawing.Point(9, 20);
 			this.lblEnvironment.Name = "lblEnvironment";
-			this.lblEnvironment.Size = new System.Drawing.Size(138, 25);
+			this.lblEnvironment.Size = new System.Drawing.Size(69, 13);
 			this.lblEnvironment.TabIndex = 4;
 			this.lblEnvironment.Text = "Environment:";
 			// 
 			// txtClientSecret
 			// 
-			this.txtClientSecret.Location = new System.Drawing.Point(168, 135);
-			this.txtClientSecret.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.txtClientSecret.Location = new System.Drawing.Point(84, 70);
 			this.txtClientSecret.Name = "txtClientSecret";
 			this.txtClientSecret.PasswordChar = '*';
-			this.txtClientSecret.Size = new System.Drawing.Size(436, 31);
+			this.txtClientSecret.Size = new System.Drawing.Size(220, 20);
 			this.txtClientSecret.TabIndex = 3;
-			this.txtClientSecret.Text = "_aobvCFokyL_67zER6HrY6Yr7q3hPJVC0ykEaIFlaHc";
 			// 
 			// lblClientSecret
 			// 
 			this.lblClientSecret.AutoSize = true;
-			this.lblClientSecret.Location = new System.Drawing.Point(16, 140);
-			this.lblClientSecret.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblClientSecret.Location = new System.Drawing.Point(8, 73);
 			this.lblClientSecret.Name = "lblClientSecret";
-			this.lblClientSecret.Size = new System.Drawing.Size(141, 25);
+			this.lblClientSecret.Size = new System.Drawing.Size(70, 13);
 			this.lblClientSecret.TabIndex = 2;
 			this.lblClientSecret.Text = "Client Secret:";
 			// 
 			// txtClientId
 			// 
-			this.txtClientId.Location = new System.Drawing.Point(168, 85);
-			this.txtClientId.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.txtClientId.Location = new System.Drawing.Point(84, 44);
 			this.txtClientId.Name = "txtClientId";
-			this.txtClientId.Size = new System.Drawing.Size(436, 31);
+			this.txtClientId.Size = new System.Drawing.Size(220, 20);
 			this.txtClientId.TabIndex = 1;
-			this.txtClientId.Text = "06fb1dbf-7b95-4759-9779-15cb0928cf6f";
 			// 
 			// lblClientId
 			// 
 			this.lblClientId.AutoSize = true;
-			this.lblClientId.Location = new System.Drawing.Point(60, 90);
-			this.lblClientId.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblClientId.Location = new System.Drawing.Point(30, 47);
 			this.lblClientId.Name = "lblClientId";
-			this.lblClientId.Size = new System.Drawing.Size(96, 25);
+			this.lblClientId.Size = new System.Drawing.Size(48, 13);
 			this.lblClientId.TabIndex = 0;
 			this.lblClientId.Text = "Client Id:";
 			// 
@@ -195,11 +184,9 @@
 			this.gbEdges.Controls.Add(this.cmbEdges);
 			this.gbEdges.Controls.Add(this.lblEdges);
 			this.gbEdges.Enabled = false;
-			this.gbEdges.Location = new System.Drawing.Point(0, 258);
-			this.gbEdges.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.gbEdges.Location = new System.Drawing.Point(318, 22);
 			this.gbEdges.Name = "gbEdges";
-			this.gbEdges.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-			this.gbEdges.Size = new System.Drawing.Size(826, 204);
+			this.gbEdges.Size = new System.Drawing.Size(413, 128);
 			this.gbEdges.TabIndex = 1;
 			this.gbEdges.TabStop = false;
 			this.gbEdges.Text = "PureCloud Edges";
@@ -207,21 +194,19 @@
 			// lblInstructions
 			// 
 			this.lblInstructions.AutoSize = true;
-			this.lblInstructions.Location = new System.Drawing.Point(162, 140);
-			this.lblInstructions.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-			this.lblInstructions.MaximumSize = new System.Drawing.Size(600, 0);
+			this.lblInstructions.Location = new System.Drawing.Point(81, 73);
+			this.lblInstructions.MaximumSize = new System.Drawing.Size(300, 0);
 			this.lblInstructions.Name = "lblInstructions";
-			this.lblInstructions.Size = new System.Drawing.Size(567, 50);
+			this.lblInstructions.Size = new System.Drawing.Size(282, 26);
 			this.lblInstructions.TabIndex = 8;
 			this.lblInstructions.Text = "What is a Ghost Call? Active call on an offline edge. If the edge is not offline," +
     " call is not considered a Ghost Call.";
 			// 
 			// btnDisconnectGhostCalls
 			// 
-			this.btnDisconnectGhostCalls.Location = new System.Drawing.Point(366, 90);
-			this.btnDisconnectGhostCalls.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnDisconnectGhostCalls.Location = new System.Drawing.Point(183, 47);
 			this.btnDisconnectGhostCalls.Name = "btnDisconnectGhostCalls";
-			this.btnDisconnectGhostCalls.Size = new System.Drawing.Size(260, 44);
+			this.btnDisconnectGhostCalls.Size = new System.Drawing.Size(130, 23);
 			this.btnDisconnectGhostCalls.TabIndex = 7;
 			this.btnDisconnectGhostCalls.Text = "Disconnect Ghost Calls";
 			this.btnDisconnectGhostCalls.UseVisualStyleBackColor = true;
@@ -229,10 +214,9 @@
 			// 
 			// btnRefreshEdges
 			// 
-			this.btnRefreshEdges.Location = new System.Drawing.Point(638, 35);
-			this.btnRefreshEdges.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnRefreshEdges.Location = new System.Drawing.Point(319, 18);
 			this.btnRefreshEdges.Name = "btnRefreshEdges";
-			this.btnRefreshEdges.Size = new System.Drawing.Size(178, 44);
+			this.btnRefreshEdges.Size = new System.Drawing.Size(89, 23);
 			this.btnRefreshEdges.TabIndex = 6;
 			this.btnRefreshEdges.Text = "Refresh Edges";
 			this.btnRefreshEdges.UseVisualStyleBackColor = true;
@@ -240,10 +224,9 @@
 			// 
 			// btnDisconnectAllCalls
 			// 
-			this.btnDisconnectAllCalls.Location = new System.Drawing.Point(168, 90);
-			this.btnDisconnectAllCalls.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnDisconnectAllCalls.Location = new System.Drawing.Point(84, 47);
 			this.btnDisconnectAllCalls.Name = "btnDisconnectAllCalls";
-			this.btnDisconnectAllCalls.Size = new System.Drawing.Size(186, 44);
+			this.btnDisconnectAllCalls.Size = new System.Drawing.Size(93, 23);
 			this.btnDisconnectAllCalls.TabIndex = 2;
 			this.btnDisconnectAllCalls.Text = "Find Ghost Calls";
 			this.btnDisconnectAllCalls.UseVisualStyleBackColor = true;
@@ -253,20 +236,18 @@
 			// 
 			this.cmbEdges.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbEdges.FormattingEnabled = true;
-			this.cmbEdges.Location = new System.Drawing.Point(168, 38);
-			this.cmbEdges.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.cmbEdges.Location = new System.Drawing.Point(84, 20);
 			this.cmbEdges.Name = "cmbEdges";
-			this.cmbEdges.Size = new System.Drawing.Size(454, 33);
+			this.cmbEdges.Size = new System.Drawing.Size(229, 21);
 			this.cmbEdges.TabIndex = 1;
 			this.cmbEdges.SelectedIndexChanged += new System.EventHandler(this.cmbEdges_SelectedIndexChanged);
 			// 
 			// lblEdges
 			// 
 			this.lblEdges.AutoSize = true;
-			this.lblEdges.Location = new System.Drawing.Point(76, 44);
-			this.lblEdges.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblEdges.Location = new System.Drawing.Point(38, 23);
 			this.lblEdges.Name = "lblEdges";
-			this.lblEdges.Size = new System.Drawing.Size(79, 25);
+			this.lblEdges.Size = new System.Drawing.Size(40, 13);
 			this.lblEdges.TabIndex = 0;
 			this.lblEdges.Text = "Edges:";
 			// 
@@ -276,21 +257,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.lstLog.FormattingEnabled = true;
-			this.lstLog.ItemHeight = 25;
-			this.lstLog.Location = new System.Drawing.Point(4, 673);
-			this.lstLog.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.lstLog.Location = new System.Drawing.Point(2, 246);
 			this.lstLog.Name = "lstLog";
-			this.lstLog.Size = new System.Drawing.Size(1802, 504);
+			this.lstLog.Size = new System.Drawing.Size(731, 277);
 			this.lstLog.TabIndex = 2;
 			this.lstLog.DoubleClick += new System.EventHandler(this.lstLog_DoubleClick);
 			// 
 			// btnClearLog
 			// 
-			this.btnClearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnClearLog.Location = new System.Drawing.Point(1650, 627);
-			this.btnClearLog.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnClearLog.Location = new System.Drawing.Point(377, 157);
 			this.btnClearLog.Name = "btnClearLog";
-			this.btnClearLog.Size = new System.Drawing.Size(162, 44);
+			this.btnClearLog.Size = new System.Drawing.Size(81, 23);
 			this.btnClearLog.TabIndex = 3;
 			this.btnClearLog.Text = "Clear Log";
 			this.btnClearLog.UseVisualStyleBackColor = true;
@@ -299,28 +276,25 @@
 			// lblConversationId
 			// 
 			this.lblConversationId.AutoSize = true;
-			this.lblConversationId.Location = new System.Drawing.Point(12, 44);
-			this.lblConversationId.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblConversationId.Location = new System.Drawing.Point(6, 23);
 			this.lblConversationId.Name = "lblConversationId";
-			this.lblConversationId.Size = new System.Drawing.Size(168, 25);
+			this.lblConversationId.Size = new System.Drawing.Size(84, 13);
 			this.lblConversationId.TabIndex = 3;
 			this.lblConversationId.Text = "Conversation Id:";
 			// 
 			// txtConversationId
 			// 
-			this.txtConversationId.Location = new System.Drawing.Point(192, 38);
-			this.txtConversationId.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.txtConversationId.Location = new System.Drawing.Point(96, 20);
 			this.txtConversationId.Name = "txtConversationId";
-			this.txtConversationId.Size = new System.Drawing.Size(526, 31);
+			this.txtConversationId.Size = new System.Drawing.Size(265, 20);
 			this.txtConversationId.TabIndex = 4;
 			this.txtConversationId.TextChanged += new System.EventHandler(this.txtConversationId_TextChanged);
 			// 
 			// btnGetConversationDetails
 			// 
-			this.btnGetConversationDetails.Location = new System.Drawing.Point(192, 88);
-			this.btnGetConversationDetails.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnGetConversationDetails.Location = new System.Drawing.Point(96, 46);
 			this.btnGetConversationDetails.Name = "btnGetConversationDetails";
-			this.btnGetConversationDetails.Size = new System.Drawing.Size(146, 44);
+			this.btnGetConversationDetails.Size = new System.Drawing.Size(73, 23);
 			this.btnGetConversationDetails.TabIndex = 5;
 			this.btnGetConversationDetails.Text = "Get Details";
 			this.btnGetConversationDetails.UseVisualStyleBackColor = true;
@@ -334,21 +308,18 @@
 			this.gbTroubleshooting.Controls.Add(this.btnGetConversationDetails);
 			this.gbTroubleshooting.Controls.Add(this.txtConversationId);
 			this.gbTroubleshooting.Enabled = false;
-			this.gbTroubleshooting.Location = new System.Drawing.Point(838, 258);
-			this.gbTroubleshooting.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.gbTroubleshooting.Location = new System.Drawing.Point(743, 30);
 			this.gbTroubleshooting.Name = "gbTroubleshooting";
-			this.gbTroubleshooting.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-			this.gbTroubleshooting.Size = new System.Drawing.Size(972, 158);
+			this.gbTroubleshooting.Size = new System.Drawing.Size(486, 82);
 			this.gbTroubleshooting.TabIndex = 4;
 			this.gbTroubleshooting.TabStop = false;
 			this.gbTroubleshooting.Text = "Troubleshooting";
 			// 
 			// btnDisconnectConversation
 			// 
-			this.btnDisconnectConversation.Location = new System.Drawing.Point(542, 88);
-			this.btnDisconnectConversation.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnDisconnectConversation.Location = new System.Drawing.Point(271, 46);
 			this.btnDisconnectConversation.Name = "btnDisconnectConversation";
-			this.btnDisconnectConversation.Size = new System.Drawing.Size(180, 44);
+			this.btnDisconnectConversation.Size = new System.Drawing.Size(90, 23);
 			this.btnDisconnectConversation.TabIndex = 8;
 			this.btnDisconnectConversation.Text = "Disconnect";
 			this.btnDisconnectConversation.UseVisualStyleBackColor = true;
@@ -357,10 +328,9 @@
 			// linkConversation
 			// 
 			this.linkConversation.AutoSize = true;
-			this.linkConversation.Location = new System.Drawing.Point(734, 44);
-			this.linkConversation.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.linkConversation.Location = new System.Drawing.Point(367, 23);
 			this.linkConversation.Name = "linkConversation";
-			this.linkConversation.Size = new System.Drawing.Size(214, 25);
+			this.linkConversation.Size = new System.Drawing.Size(105, 13);
 			this.linkConversation.TabIndex = 7;
 			this.linkConversation.TabStop = true;
 			this.linkConversation.Text = "Monitor in PureCloud";
@@ -369,20 +339,18 @@
 			// lblAnalyticsEndDateTime
 			// 
 			this.lblAnalyticsEndDateTime.AutoSize = true;
-			this.lblAnalyticsEndDateTime.Location = new System.Drawing.Point(122, 138);
-			this.lblAnalyticsEndDateTime.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblAnalyticsEndDateTime.Location = new System.Drawing.Point(61, 72);
 			this.lblAnalyticsEndDateTime.Name = "lblAnalyticsEndDateTime";
-			this.lblAnalyticsEndDateTime.Size = new System.Drawing.Size(56, 25);
+			this.lblAnalyticsEndDateTime.Size = new System.Drawing.Size(29, 13);
 			this.lblAnalyticsEndDateTime.TabIndex = 12;
 			this.lblAnalyticsEndDateTime.Text = "End:";
 			// 
 			// lblAnalyticsStartDateTime
 			// 
 			this.lblAnalyticsStartDateTime.AutoSize = true;
-			this.lblAnalyticsStartDateTime.Location = new System.Drawing.Point(116, 88);
-			this.lblAnalyticsStartDateTime.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblAnalyticsStartDateTime.Location = new System.Drawing.Point(58, 46);
 			this.lblAnalyticsStartDateTime.Name = "lblAnalyticsStartDateTime";
-			this.lblAnalyticsStartDateTime.Size = new System.Drawing.Size(63, 25);
+			this.lblAnalyticsStartDateTime.Size = new System.Drawing.Size(32, 13);
 			this.lblAnalyticsStartDateTime.TabIndex = 11;
 			this.lblAnalyticsStartDateTime.Text = "Start:";
 			// 
@@ -390,28 +358,25 @@
 			// 
 			this.dtAnalyticsEnd.CustomFormat = "yyyy-MM-dd HH:mm:ss";
 			this.dtAnalyticsEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.dtAnalyticsEnd.Location = new System.Drawing.Point(192, 133);
-			this.dtAnalyticsEnd.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.dtAnalyticsEnd.Location = new System.Drawing.Point(96, 69);
 			this.dtAnalyticsEnd.Name = "dtAnalyticsEnd";
-			this.dtAnalyticsEnd.Size = new System.Drawing.Size(268, 31);
+			this.dtAnalyticsEnd.Size = new System.Drawing.Size(136, 20);
 			this.dtAnalyticsEnd.TabIndex = 10;
 			// 
 			// dtAnalyticsStart
 			// 
 			this.dtAnalyticsStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
 			this.dtAnalyticsStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.dtAnalyticsStart.Location = new System.Drawing.Point(192, 83);
-			this.dtAnalyticsStart.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.dtAnalyticsStart.Location = new System.Drawing.Point(96, 43);
 			this.dtAnalyticsStart.Name = "dtAnalyticsStart";
-			this.dtAnalyticsStart.Size = new System.Drawing.Size(268, 31);
+			this.dtAnalyticsStart.Size = new System.Drawing.Size(136, 20);
 			this.dtAnalyticsStart.TabIndex = 9;
 			// 
 			// btnTestPhantomCall
 			// 
-			this.btnTestPhantomCall.Location = new System.Drawing.Point(476, 104);
-			this.btnTestPhantomCall.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.btnTestPhantomCall.Location = new System.Drawing.Point(238, 54);
 			this.btnTestPhantomCall.Name = "btnTestPhantomCall";
-			this.btnTestPhantomCall.Size = new System.Drawing.Size(226, 44);
+			this.btnTestPhantomCall.Size = new System.Drawing.Size(113, 23);
 			this.btnTestPhantomCall.TabIndex = 6;
 			this.btnTestPhantomCall.Text = "Is this a Ghost Call?";
 			this.btnTestPhantomCall.UseVisualStyleBackColor = true;
@@ -423,11 +388,9 @@
 			this.gbAgents.Controls.Add(this.lblLoggedInAgents);
 			this.gbAgents.Controls.Add(this.lblNotRespondingAgentsValue);
 			this.gbAgents.Controls.Add(this.lblNotRespondingAgents);
-			this.gbAgents.Location = new System.Drawing.Point(0, 473);
-			this.gbAgents.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.gbAgents.Location = new System.Drawing.Point(2, 157);
 			this.gbAgents.Name = "gbAgents";
-			this.gbAgents.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-			this.gbAgents.Size = new System.Drawing.Size(394, 142);
+			this.gbAgents.Size = new System.Drawing.Size(197, 74);
 			this.gbAgents.TabIndex = 5;
 			this.gbAgents.TabStop = false;
 			this.gbAgents.Text = "Agents (refresh every 5 sec.)";
@@ -435,40 +398,36 @@
 			// lblLoggedInAgentsValue
 			// 
 			this.lblLoggedInAgentsValue.AutoSize = true;
-			this.lblLoggedInAgentsValue.Location = new System.Drawing.Point(206, 40);
-			this.lblLoggedInAgentsValue.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblLoggedInAgentsValue.Location = new System.Drawing.Point(103, 21);
 			this.lblLoggedInAgentsValue.Name = "lblLoggedInAgentsValue";
-			this.lblLoggedInAgentsValue.Size = new System.Drawing.Size(47, 25);
+			this.lblLoggedInAgentsValue.Size = new System.Drawing.Size(27, 13);
 			this.lblLoggedInAgentsValue.TabIndex = 3;
 			this.lblLoggedInAgentsValue.Text = "N/A";
 			// 
 			// lblLoggedInAgents
 			// 
 			this.lblLoggedInAgents.AutoSize = true;
-			this.lblLoggedInAgents.Location = new System.Drawing.Point(78, 40);
-			this.lblLoggedInAgents.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblLoggedInAgents.Location = new System.Drawing.Point(39, 21);
 			this.lblLoggedInAgents.Name = "lblLoggedInAgents";
-			this.lblLoggedInAgents.Size = new System.Drawing.Size(113, 25);
+			this.lblLoggedInAgents.Size = new System.Drawing.Size(58, 13);
 			this.lblLoggedInAgents.TabIndex = 2;
 			this.lblLoggedInAgents.Text = "Logged In:";
 			// 
 			// lblNotRespondingAgentsValue
 			// 
 			this.lblNotRespondingAgentsValue.AutoSize = true;
-			this.lblNotRespondingAgentsValue.Location = new System.Drawing.Point(206, 79);
-			this.lblNotRespondingAgentsValue.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblNotRespondingAgentsValue.Location = new System.Drawing.Point(103, 41);
 			this.lblNotRespondingAgentsValue.Name = "lblNotRespondingAgentsValue";
-			this.lblNotRespondingAgentsValue.Size = new System.Drawing.Size(47, 25);
+			this.lblNotRespondingAgentsValue.Size = new System.Drawing.Size(27, 13);
 			this.lblNotRespondingAgentsValue.TabIndex = 1;
 			this.lblNotRespondingAgentsValue.Text = "N/A";
 			// 
 			// lblNotRespondingAgents
 			// 
 			this.lblNotRespondingAgents.AutoSize = true;
-			this.lblNotRespondingAgents.Location = new System.Drawing.Point(20, 79);
-			this.lblNotRespondingAgents.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblNotRespondingAgents.Location = new System.Drawing.Point(10, 41);
 			this.lblNotRespondingAgents.Name = "lblNotRespondingAgents";
-			this.lblNotRespondingAgents.Size = new System.Drawing.Size(172, 25);
+			this.lblNotRespondingAgents.Size = new System.Drawing.Size(87, 13);
 			this.lblNotRespondingAgents.TabIndex = 0;
 			this.lblNotRespondingAgents.Text = "Not Responding:";
 			// 
@@ -483,11 +442,9 @@
 			this.gbTestPhantomCall.Controls.Add(this.dtAnalyticsEnd);
 			this.gbTestPhantomCall.Controls.Add(this.dtAnalyticsStart);
 			this.gbTestPhantomCall.Enabled = false;
-			this.gbTestPhantomCall.Location = new System.Drawing.Point(838, 429);
-			this.gbTestPhantomCall.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.gbTestPhantomCall.Location = new System.Drawing.Point(743, 118);
 			this.gbTestPhantomCall.Name = "gbTestPhantomCall";
-			this.gbTestPhantomCall.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-			this.gbTestPhantomCall.Size = new System.Drawing.Size(974, 187);
+			this.gbTestPhantomCall.Size = new System.Drawing.Size(487, 97);
 			this.gbTestPhantomCall.TabIndex = 13;
 			this.gbTestPhantomCall.TabStop = false;
 			this.gbTestPhantomCall.Text = "Ghost Call Test";
@@ -495,10 +452,9 @@
 			// linkConversation2
 			// 
 			this.linkConversation2.AutoSize = true;
-			this.linkConversation2.Location = new System.Drawing.Point(734, 38);
-			this.linkConversation2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.linkConversation2.Location = new System.Drawing.Point(367, 20);
 			this.linkConversation2.Name = "linkConversation2";
-			this.linkConversation2.Size = new System.Drawing.Size(214, 25);
+			this.linkConversation2.Size = new System.Drawing.Size(105, 13);
 			this.linkConversation2.TabIndex = 13;
 			this.linkConversation2.TabStop = true;
 			this.linkConversation2.Text = "Monitor in PureCloud";
@@ -506,20 +462,18 @@
 			// 
 			// txtAnalyticsConversationId
 			// 
-			this.txtAnalyticsConversationId.Location = new System.Drawing.Point(192, 33);
-			this.txtAnalyticsConversationId.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.txtAnalyticsConversationId.Location = new System.Drawing.Point(96, 17);
 			this.txtAnalyticsConversationId.Name = "txtAnalyticsConversationId";
-			this.txtAnalyticsConversationId.Size = new System.Drawing.Size(526, 31);
+			this.txtAnalyticsConversationId.Size = new System.Drawing.Size(265, 20);
 			this.txtAnalyticsConversationId.TabIndex = 9;
 			this.txtAnalyticsConversationId.TextChanged += new System.EventHandler(this.txtAnalyticsConversationId_TextChanged);
 			// 
 			// lblAnalyticsConversationId
 			// 
 			this.lblAnalyticsConversationId.AutoSize = true;
-			this.lblAnalyticsConversationId.Location = new System.Drawing.Point(12, 38);
-			this.lblAnalyticsConversationId.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblAnalyticsConversationId.Location = new System.Drawing.Point(6, 20);
 			this.lblAnalyticsConversationId.Name = "lblAnalyticsConversationId";
-			this.lblAnalyticsConversationId.Size = new System.Drawing.Size(168, 25);
+			this.lblAnalyticsConversationId.Size = new System.Drawing.Size(84, 13);
 			this.lblAnalyticsConversationId.TabIndex = 9;
 			this.lblAnalyticsConversationId.Text = "Conversation Id:";
 			// 
@@ -527,11 +481,9 @@
 			// 
 			this.groupBox2.Controls.Add(this.lblDisconnectedCallsValue);
 			this.groupBox2.Controls.Add(this.lblDisconnectedCalls);
-			this.groupBox2.Location = new System.Drawing.Point(406, 474);
-			this.groupBox2.Margin = new System.Windows.Forms.Padding(6);
+			this.groupBox2.Location = new System.Drawing.Point(205, 157);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Padding = new System.Windows.Forms.Padding(6);
-			this.groupBox2.Size = new System.Drawing.Size(420, 142);
+			this.groupBox2.Size = new System.Drawing.Size(166, 74);
 			this.groupBox2.TabIndex = 6;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Counters";
@@ -539,28 +491,48 @@
 			// lblDisconnectedCallsValue
 			// 
 			this.lblDisconnectedCallsValue.AutoSize = true;
-			this.lblDisconnectedCallsValue.Location = new System.Drawing.Point(223, 38);
-			this.lblDisconnectedCallsValue.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblDisconnectedCallsValue.Location = new System.Drawing.Point(112, 20);
 			this.lblDisconnectedCallsValue.Name = "lblDisconnectedCallsValue";
-			this.lblDisconnectedCallsValue.Size = new System.Drawing.Size(24, 25);
+			this.lblDisconnectedCallsValue.Size = new System.Drawing.Size(13, 13);
 			this.lblDisconnectedCallsValue.TabIndex = 3;
 			this.lblDisconnectedCallsValue.Text = "0";
 			// 
 			// lblDisconnectedCalls
 			// 
 			this.lblDisconnectedCalls.AutoSize = true;
-			this.lblDisconnectedCalls.Location = new System.Drawing.Point(12, 38);
-			this.lblDisconnectedCalls.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.lblDisconnectedCalls.Location = new System.Drawing.Point(6, 20);
 			this.lblDisconnectedCalls.Name = "lblDisconnectedCalls";
-			this.lblDisconnectedCalls.Size = new System.Drawing.Size(199, 25);
+			this.lblDisconnectedCalls.Size = new System.Drawing.Size(100, 13);
 			this.lblDisconnectedCalls.TabIndex = 2;
 			this.lblDisconnectedCalls.Text = "Disconnected calls:";
 			// 
+			// btnSaveLog
+			// 
+			this.btnSaveLog.Location = new System.Drawing.Point(377, 186);
+			this.btnSaveLog.Name = "btnSaveLog";
+			this.btnSaveLog.Size = new System.Drawing.Size(81, 23);
+			this.btnSaveLog.TabIndex = 14;
+			this.btnSaveLog.Text = "Save Log";
+			this.btnSaveLog.UseVisualStyleBackColor = true;
+			this.btnSaveLog.Click += new System.EventHandler(this.btnSaveLog_Click);
+			// 
+			// chkVerboseLogging
+			// 
+			this.chkVerboseLogging.AutoSize = true;
+			this.chkVerboseLogging.Location = new System.Drawing.Point(377, 215);
+			this.chkVerboseLogging.Name = "chkVerboseLogging";
+			this.chkVerboseLogging.Size = new System.Drawing.Size(106, 17);
+			this.chkVerboseLogging.TabIndex = 15;
+			this.chkVerboseLogging.Text = "Verbose Logging";
+			this.chkVerboseLogging.UseVisualStyleBackColor = true;
+			// 
 			// Form1
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1812, 1194);
+			this.ClientSize = new System.Drawing.Size(734, 526);
+			this.Controls.Add(this.chkVerboseLogging);
+			this.Controls.Add(this.btnSaveLog);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.gbAgents);
 			this.Controls.Add(this.gbTestPhantomCall);
@@ -570,7 +542,6 @@
 			this.Controls.Add(this.gbEdges);
 			this.Controls.Add(this.groupBox1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "Form1";
@@ -588,6 +559,7 @@
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -634,6 +606,8 @@
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label lblDisconnectedCallsValue;
 		private System.Windows.Forms.Label lblDisconnectedCalls;
+		private System.Windows.Forms.Button btnSaveLog;
+		private System.Windows.Forms.CheckBox chkVerboseLogging;
 	}
 }
 
