@@ -94,6 +94,7 @@ namespace DisconnectCalls
 				gbTroubleshooting.Enabled = true;
 				gbAgents.Enabled = true;
 				gbTestGhostCall.Enabled = true;
+				gbCounters.Enabled = true;
 
 				// Populate Edges
 				GetEdges();
@@ -117,6 +118,7 @@ namespace DisconnectCalls
 				gbTroubleshooting.Enabled = false;
 				gbAgents.Enabled = false;
 				gbTestGhostCall.Enabled = false;
+				gbCounters.Enabled = false;
 				loggedIn = false;
 			}
 		}
@@ -139,6 +141,7 @@ namespace DisconnectCalls
 			gbTroubleshooting.Enabled = false;
 			gbAgents.Enabled = false;
 			gbTestGhostCall.Enabled = false;
+			gbCounters.Enabled = false;
 			AddLog("Disconnected");
 		}
 

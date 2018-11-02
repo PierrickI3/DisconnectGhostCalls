@@ -67,7 +67,7 @@
 			this.linkConversation2 = new System.Windows.Forms.LinkLabel();
 			this.txtAnalyticsConversationId = new System.Windows.Forms.TextBox();
 			this.lblAnalyticsConversationId = new System.Windows.Forms.Label();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.gbCounters = new System.Windows.Forms.GroupBox();
 			this.lblDisconnectedCallsValue = new System.Windows.Forms.Label();
 			this.lblDisconnectedCalls = new System.Windows.Forms.Label();
 			this.btnSaveLog = new System.Windows.Forms.Button();
@@ -77,7 +77,7 @@
 			this.gbTroubleshooting.SuspendLayout();
 			this.gbAgents.SuspendLayout();
 			this.gbTestGhostCall.SuspendLayout();
-			this.groupBox2.SuspendLayout();
+			this.gbCounters.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -388,6 +388,7 @@
 			this.gbAgents.Controls.Add(this.lblLoggedInAgents);
 			this.gbAgents.Controls.Add(this.lblNotRespondingAgentsValue);
 			this.gbAgents.Controls.Add(this.lblNotRespondingAgents);
+			this.gbAgents.Enabled = false;
 			this.gbAgents.Location = new System.Drawing.Point(2, 157);
 			this.gbAgents.Name = "gbAgents";
 			this.gbAgents.Size = new System.Drawing.Size(197, 74);
@@ -477,16 +478,17 @@
 			this.lblAnalyticsConversationId.TabIndex = 9;
 			this.lblAnalyticsConversationId.Text = "Conversation Id:";
 			// 
-			// groupBox2
+			// gbCounters
 			// 
-			this.groupBox2.Controls.Add(this.lblDisconnectedCallsValue);
-			this.groupBox2.Controls.Add(this.lblDisconnectedCalls);
-			this.groupBox2.Location = new System.Drawing.Point(205, 157);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(166, 74);
-			this.groupBox2.TabIndex = 6;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Counters";
+			this.gbCounters.Controls.Add(this.lblDisconnectedCallsValue);
+			this.gbCounters.Controls.Add(this.lblDisconnectedCalls);
+			this.gbCounters.Enabled = false;
+			this.gbCounters.Location = new System.Drawing.Point(205, 157);
+			this.gbCounters.Name = "gbCounters";
+			this.gbCounters.Size = new System.Drawing.Size(166, 74);
+			this.gbCounters.TabIndex = 6;
+			this.gbCounters.TabStop = false;
+			this.gbCounters.Text = "Counters";
 			// 
 			// lblDisconnectedCallsValue
 			// 
@@ -533,7 +535,7 @@
 			this.ClientSize = new System.Drawing.Size(734, 526);
 			this.Controls.Add(this.chkVerboseLogging);
 			this.Controls.Add(this.btnSaveLog);
-			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.gbCounters);
 			this.Controls.Add(this.gbAgents);
 			this.Controls.Add(this.gbTestGhostCall);
 			this.Controls.Add(this.gbTroubleshooting);
@@ -556,8 +558,8 @@
 			this.gbAgents.PerformLayout();
 			this.gbTestGhostCall.ResumeLayout(false);
 			this.gbTestGhostCall.PerformLayout();
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
+			this.gbCounters.ResumeLayout(false);
+			this.gbCounters.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -603,7 +605,7 @@
 		private System.Windows.Forms.TextBox txtAnalyticsConversationId;
 		private System.Windows.Forms.Label lblAnalyticsConversationId;
 		private System.Windows.Forms.LinkLabel linkConversation2;
-		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.GroupBox gbCounters;
 		private System.Windows.Forms.Label lblDisconnectedCallsValue;
 		private System.Windows.Forms.Label lblDisconnectedCalls;
 		private System.Windows.Forms.Button btnSaveLog;
