@@ -29,6 +29,9 @@ namespace DisconnectCalls
 		int _LoggedInAgents = 0;
 		int _NotRespondingAgents = 0;
 
+		bool loggedIn = false;
+		Timer timer = new Timer();
+
 		#endregion
 
 		#region Init
@@ -60,7 +63,7 @@ namespace DisconnectCalls
 		{
 			try
 			{
-				if (String.IsNullOrEmpty(txtClientId.Text) || String.IsNullOrEmpty(txtClientSecret.Text))
+				if (string.IsNullOrEmpty(txtClientId.Text) || string.IsNullOrEmpty(txtClientSecret.Text))
 				{
 					MessageBox.Show("Enter a client id & secret first.");
 					return;
@@ -71,6 +74,7 @@ namespace DisconnectCalls
 				Configuration.Default.ApiClient.RestClient.BaseUrl = new Uri($"https://api.{cmbEnvironment.SelectedItem.ToString()}");
 				var accessTokenInfo = Configuration.Default.ApiClient.PostToken(txtClientId.Text, txtClientSecret.Text);
 				Configuration.Default.AccessToken = accessTokenInfo.AccessToken;
+				loggedIn = true;
 				AddLog($"Connected.");
 				AddLog($"Access Token: {accessTokenInfo.AccessToken}", true);
 
@@ -89,17 +93,16 @@ namespace DisconnectCalls
 				gbEdges.Enabled = true;
 				gbTroubleshooting.Enabled = true;
 				gbAgents.Enabled = true;
-				gbTestPhantomCall.Enabled = true;
+				gbTestGhostCall.Enabled = true;
 
 				// Populate Edges
 				GetEdges();
 
 				// Get Agents Stats
 				AddLog("Starting timer for monitoring agent status", true);
-				StartMonitoringAgents();
-				var timer = new Timer();
+				PullAgentsData();
 				timer.Interval = 5000;
-				timer.Tick += (object timerSender, EventArgs eventArgs) => { StartMonitoringAgents(); };
+				timer.Tick += (object timerSender, EventArgs eventArgs) => { PullAgentsData(); };
 				timer.Start();
 				AddLog("Timer started", true);
 			}
@@ -113,13 +116,9 @@ namespace DisconnectCalls
 				gbEdges.Enabled = false;
 				gbTroubleshooting.Enabled = false;
 				gbAgents.Enabled = false;
-				gbTestPhantomCall.Enabled = false;
+				gbTestGhostCall.Enabled = false;
+				loggedIn = false;
 			}
-		}
-
-		private void Timer_Tick(object sender, EventArgs e)
-		{
-			throw new NotImplementedException();
 		}
 
 		private void btnDisconnect_Click(object sender, EventArgs e)
@@ -130,14 +129,16 @@ namespace DisconnectCalls
 		private void Disconnect()
 		{
 			if (!btnDisconnect.Enabled) { return; }
+			loggedIn = false;
 			AddLog("Disconnecting...");
+			StopPullingAgentsData();
 			tokensApi.DeleteTokensMe();
 			btnConnect.Enabled = true;
 			btnDisconnect.Enabled = false;
 			gbEdges.Enabled = false;
 			gbTroubleshooting.Enabled = false;
 			gbAgents.Enabled = false;
-			gbTestPhantomCall.Enabled = false;
+			gbTestGhostCall.Enabled = false;
 			AddLog("Disconnected");
 		}
 
@@ -145,7 +146,7 @@ namespace DisconnectCalls
 
 		#region Agents
 
-		private void StartMonitoringAgents()
+		private void PullAgentsData()
 		{
 			_LoggedInAgents = 0;
 			_NotRespondingAgents = 0;
@@ -163,11 +164,16 @@ namespace DisconnectCalls
 
 				_LoggedInAgents += userEntityListing.Entities.Count(u => !u.Presence.PresenceDefinition.SystemPresence.Equals("offline", StringComparison.InvariantCultureIgnoreCase));
 				_NotRespondingAgents += userEntityListing.Entities.Count(u => u.RoutingStatus.Status == RoutingStatus.StatusEnum.NotResponding);
-			} while (pageNumber <= pageCount);
+			} while (pageNumber <= pageCount && loggedIn);
 
 			AddLog($"Logged in agents: {_LoggedInAgents}, Not Responding Agents: {_NotRespondingAgents}", true);
 			lblLoggedInAgentsValue.Text = _LoggedInAgents.ToString();
 			lblNotRespondingAgentsValue.Text = _NotRespondingAgents.ToString();
+		}
+
+		private void StopPullingAgentsData()
+		{
+			timer.Stop();
 		}
 
 		#endregion
@@ -208,9 +214,9 @@ namespace DisconnectCalls
 
 		#endregion
 
-		#region Disconnect Calls
+		#region Ghost Calls
 
-		private void btnDisconnectAllCalls_Click(object sender, EventArgs e)
+		private void btnFindGhostCalls_Click(object sender, EventArgs e)
 		{
 			conversationsToDisconnect.Clear();
 
@@ -233,19 +239,18 @@ namespace DisconnectCalls
 					continue; // Conversation is finished, ignore
 				}
 
-				// Is this a phantom call?
+				// Is this a ghost call?
 				var currentConversation = GetSingleAnalyticsConversation(conversation.ConversationId);
 				if (currentConversation == null) { continue; }
-				if (TestPhantomCall(currentConversation))
+				if (TestGhostCall(currentConversation))
 				{
-					// Add to Disconnect List
-					//conversationsToDisconnect.Add(conversation);
 					AddLog($"  ==> Need to disconnect Conversation: {conversation.ConversationId} ?");
+
 					// Get last participant
 					var lastParticipant = conversation.Participants[conversation.Participants.Count - 1];
 
 					// Get latest session with an Edge Id that matches selected edge
-					var lastSession = lastParticipant.Sessions.LastOrDefault(s => (s.MediaType == AnalyticsSession.MediaTypeEnum.Voice && !String.IsNullOrEmpty(s.EdgeId)));
+					var lastSession = lastParticipant.Sessions.LastOrDefault(s => (s.MediaType == AnalyticsSession.MediaTypeEnum.Voice && !string.IsNullOrEmpty(s.EdgeId)));
 					if (lastSession != null && lastSession.EdgeId.Equals(currentEdge.Id))
 					{
 						// Add to Disconnect List
@@ -253,7 +258,6 @@ namespace DisconnectCalls
 						AddLog($"  This conversation needs to be disconnected ==> Id: {conversation.ConversationId}, Participant: {lastParticipant.ParticipantName} ({lastParticipant.Purpose}), Media Type: {lastSession.MediaType}");
 					}
 				}
-
 			}
 			AddLog($"Found {conversationsToDisconnect.Count} conversations to disconnect on {currentEdge.Name}");
 		}
@@ -466,7 +470,7 @@ namespace DisconnectCalls
 
 		private void btnGetConversationDetails_Click(object sender, EventArgs e)
 		{
-			if (String.IsNullOrEmpty(txtConversationId.Text)) { return; }
+			if (string.IsNullOrEmpty(txtConversationId.Text)) { return; }
 			try
 			{
 				AddLog($"Getting conversation details for {txtConversationId.Text}", true);
@@ -484,13 +488,13 @@ namespace DisconnectCalls
 			}
 		}
 
-		private void btnTestPhantomCall_Click(object sender, EventArgs e)
+		private void btnTestGhostCall_Click(object sender, EventArgs e)
 		{
-			if (String.IsNullOrEmpty(txtAnalyticsConversationId.Text)) { return; }
+			if (string.IsNullOrEmpty(txtAnalyticsConversationId.Text)) { return; }
 			var currentConversation = GetSingleAnalyticsConversation(txtAnalyticsConversationId.Text);
 			if (currentConversation == null) { return; }
 
-			MessageBox.Show($"Phantom call? {TestPhantomCall(currentConversation)}");
+			MessageBox.Show($"Ghost call? {TestGhostCall(currentConversation)}");
 		}
 
 		private AnalyticsConversation GetSingleAnalyticsConversation(string conversationId)
@@ -549,7 +553,7 @@ namespace DisconnectCalls
 			return null;
 		}
 
-		private bool TestPhantomCall(AnalyticsConversation conversation)
+		private bool TestGhostCall(AnalyticsConversation conversation)
 		{
 			// Is this an external/inbound/outbound call on selected edge?
 			var participant = conversation.Participants.FirstOrDefault(p => (p.Purpose == AnalyticsParticipant.PurposeEnum.External || p.Purpose == AnalyticsParticipant.PurposeEnum.Inbound || p.Purpose == AnalyticsParticipant.PurposeEnum.Outbound || p.Purpose == AnalyticsParticipant.PurposeEnum.Customer) && p.Sessions.Count(s => s.EdgeId == currentEdge.Id) > 0);
@@ -569,7 +573,7 @@ namespace DisconnectCalls
 		private void txtConversationId_TextChanged(object sender, EventArgs e)
 		{
 			linkConversation.Links.Clear();
-			if (!String.IsNullOrEmpty(txtConversationId.Text))
+			if (!string.IsNullOrEmpty(txtConversationId.Text))
 			{
 				LinkLabel.Link link = new LinkLabel.Link();
 				link.LinkData = $"https://apps.{cmbEnvironment.SelectedItem}/directory/#/engage/admin/interactions/{txtConversationId.Text}";
@@ -580,7 +584,7 @@ namespace DisconnectCalls
 		private void txtAnalyticsConversationId_TextChanged(object sender, EventArgs e)
 		{
 			linkConversation2.Links.Clear();
-			if (!String.IsNullOrEmpty(txtAnalyticsConversationId.Text))
+			if (!string.IsNullOrEmpty(txtAnalyticsConversationId.Text))
 			{
 				LinkLabel.Link link = new LinkLabel.Link();
 				link.LinkData = $"https://apps.{cmbEnvironment.SelectedItem}/directory/#/engage/admin/interactions/{txtAnalyticsConversationId.Text}";
@@ -613,6 +617,5 @@ namespace DisconnectCalls
 		}
 
 		#endregion
-
 	}
 }
