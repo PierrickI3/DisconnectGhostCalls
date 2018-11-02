@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="PC Disconnect Ghost Calls Tool" Language="1033" Version="1.0.0.0" Manufacturer="Genesys" UpgradeCode="267c1fa7-aa78-4f2c-8c52-034975fae948">
+	<Product Id="*" Name="PC Disconnect Ghost Calls Tool" Language="1033" Version="1.0.0.1" Manufacturer="Genesys" UpgradeCode="267c1fa7-aa78-4f2c-8c52-034975fae948">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 		<Media Id="1" Cabinet="PCDisconnectGhostCallsTool.cab" EmbedCab="yes" />
 
