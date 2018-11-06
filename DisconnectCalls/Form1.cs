@@ -43,6 +43,7 @@ namespace DisconnectCalls
 			AddLog("Initializing...");
 
 			cmbEnvironment.SelectedIndex = 0;
+			// Set interval when clicking on "Find Ghost Calls"
 			dtAnalyticsStart.Value = DateTime.Now.AddDays(-1);
 			dtAnalyticsEnd.Value = DateTime.Now;
 			btnConnect.Select();
@@ -223,6 +224,9 @@ namespace DisconnectCalls
 		{
 			conversationsToDisconnect.Clear();
 
+			dtAnalyticsStart.Value = DateTime.Now.AddDays(-1);
+			dtAnalyticsEnd.Value = DateTime.Now;
+
 			if (currentEdge == null)
 			{
 				// Something wrong happened
@@ -249,16 +253,37 @@ namespace DisconnectCalls
 				{
 					AddLog($"  ==> Need to disconnect Conversation: {conversation.ConversationId} ?");
 
-					// Get last participant
-					var lastParticipant = conversation.Participants[conversation.Participants.Count - 1];
-
-					// Get latest session with an Edge Id that matches selected edge
-					var lastSession = lastParticipant.Sessions.LastOrDefault(s => (s.MediaType == AnalyticsSession.MediaTypeEnum.Voice && !string.IsNullOrEmpty(s.EdgeId)));
-					if (lastSession != null && lastSession.EdgeId.Equals(currentEdge.Id))
+					if (chkConsiderAllParticipantsSessions.Checked)
 					{
-						// Add to Disconnect List
-						conversationsToDisconnect.Add(conversation);
-						AddLog($"  This conversation needs to be disconnected ==> Id: {conversation.ConversationId}, Participant: {lastParticipant.ParticipantName} ({lastParticipant.Purpose}), Media Type: {lastSession.MediaType}");
+						var anyParticipantsOnSelectedEdge = conversation.Participants.Any(p => p.Sessions.Any(s => s.MediaType == AnalyticsSession.MediaTypeEnum.Voice && s.EdgeId == currentEdge.Id));
+						if (anyParticipantsOnSelectedEdge)
+						{
+							// Add to Disconnect List
+							AddLog($"  Conversation {conversation.ConversationId} needs to be disconnected: One of its session is on the selected Edge ({currentEdge.Name})");
+							conversationsToDisconnect.Add(conversation);
+						}
+						else
+						{
+							AddLog($"  Conversation {conversation.ConversationId} does NOT need to be disconnected: None of its sessions is on the selected Edge ({currentEdge.Name})", true);
+						}
+					}
+					else 
+					{
+						// Get last participant
+						var lastParticipant = conversation.Participants[conversation.Participants.Count - 1];
+
+						// Get last session for this participant with an Edge Id that matches selected edge
+						var lastSession = lastParticipant.Sessions.LastOrDefault(s => (s.MediaType == AnalyticsSession.MediaTypeEnum.Voice && !string.IsNullOrEmpty(s.EdgeId)));
+						if (lastSession != null && lastSession.EdgeId.Equals(currentEdge.Id))
+						{
+							// Add to Disconnect List
+							AddLog($"  Conversation {conversation.ConversationId} needs to be disconnected: The last session of the last participant {lastParticipant.ParticipantName} ({lastParticipant.Purpose}) is on the selected Edge ({currentEdge.Name})");
+							conversationsToDisconnect.Add(conversation);
+						}
+						else
+						{
+							AddLog($"  Conversation {conversation.ConversationId}'s last session is not on the selected edge ({currentEdge.Name}). Participant: {lastParticipant.ParticipantName}. Will NOT disconnect.", true);
+						}
 					}
 				}
 			}
@@ -281,8 +306,14 @@ namespace DisconnectCalls
 				{
 					foreach (var conversation in conversationsToDisconnect)
 					{
+						AddLog($"Disconnecting {conversation.ConversationId}...", true);
 						DisconnectConversation(conversation.ConversationId);
 					}
+					AddLog($"All conversations disconnected");
+				}
+				else
+				{
+					AddLog($"Selected Edge {currentEdge.Name} is no longer offline");
 				}
 			}
 			conversationsToDisconnect.Clear();

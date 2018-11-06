@@ -39,6 +39,7 @@
 			this.txtClientId = new System.Windows.Forms.TextBox();
 			this.lblClientId = new System.Windows.Forms.Label();
 			this.gbEdges = new System.Windows.Forms.GroupBox();
+			this.chkConsiderAllParticipantsSessions = new System.Windows.Forms.CheckBox();
 			this.lblInstructions = new System.Windows.Forms.Label();
 			this.btnDisconnectGhostCalls = new System.Windows.Forms.Button();
 			this.btnRefreshEdges = new System.Windows.Forms.Button();
@@ -149,6 +150,7 @@
 			this.txtClientSecret.PasswordChar = '*';
 			this.txtClientSecret.Size = new System.Drawing.Size(220, 20);
 			this.txtClientSecret.TabIndex = 3;
+			this.txtClientSecret.Text = "zDvZkHAVNz9Nlrz5dizugfM8UTZQJItYtHU0BywvQjA";
 			// 
 			// lblClientSecret
 			// 
@@ -165,6 +167,7 @@
 			this.txtClientId.Name = "txtClientId";
 			this.txtClientId.Size = new System.Drawing.Size(220, 20);
 			this.txtClientId.TabIndex = 1;
+			this.txtClientId.Text = "a9e25c55-e58c-47b6-9c01-0cd4abb8bd22";
 			// 
 			// lblClientId
 			// 
@@ -177,6 +180,7 @@
 			// 
 			// gbEdges
 			// 
+			this.gbEdges.Controls.Add(this.chkConsiderAllParticipantsSessions);
 			this.gbEdges.Controls.Add(this.lblInstructions);
 			this.gbEdges.Controls.Add(this.btnDisconnectGhostCalls);
 			this.gbEdges.Controls.Add(this.btnRefreshEdges);
@@ -186,15 +190,27 @@
 			this.gbEdges.Enabled = false;
 			this.gbEdges.Location = new System.Drawing.Point(318, 22);
 			this.gbEdges.Name = "gbEdges";
-			this.gbEdges.Size = new System.Drawing.Size(413, 128);
+			this.gbEdges.Size = new System.Drawing.Size(385, 128);
 			this.gbEdges.TabIndex = 1;
 			this.gbEdges.TabStop = false;
 			this.gbEdges.Text = "PureCloud Edges";
 			// 
+			// chkConsiderAllParticipantsSessions
+			// 
+			this.chkConsiderAllParticipantsSessions.AutoSize = true;
+			this.chkConsiderAllParticipantsSessions.Checked = true;
+			this.chkConsiderAllParticipantsSessions.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkConsiderAllParticipantsSessions.Location = new System.Drawing.Point(52, 105);
+			this.chkConsiderAllParticipantsSessions.Name = "chkConsiderAllParticipantsSessions";
+			this.chkConsiderAllParticipantsSessions.Size = new System.Drawing.Size(183, 17);
+			this.chkConsiderAllParticipantsSessions.TabIndex = 16;
+			this.chkConsiderAllParticipantsSessions.Text = "Consider All Legs (recommended)";
+			this.chkConsiderAllParticipantsSessions.UseVisualStyleBackColor = true;
+			// 
 			// lblInstructions
 			// 
 			this.lblInstructions.AutoSize = true;
-			this.lblInstructions.Location = new System.Drawing.Point(81, 73);
+			this.lblInstructions.Location = new System.Drawing.Point(6, 73);
 			this.lblInstructions.MaximumSize = new System.Drawing.Size(300, 0);
 			this.lblInstructions.Name = "lblInstructions";
 			this.lblInstructions.Size = new System.Drawing.Size(282, 26);
@@ -204,7 +220,7 @@
 			// 
 			// btnDisconnectGhostCalls
 			// 
-			this.btnDisconnectGhostCalls.Location = new System.Drawing.Point(183, 47);
+			this.btnDisconnectGhostCalls.Location = new System.Drawing.Point(151, 47);
 			this.btnDisconnectGhostCalls.Name = "btnDisconnectGhostCalls";
 			this.btnDisconnectGhostCalls.Size = new System.Drawing.Size(130, 23);
 			this.btnDisconnectGhostCalls.TabIndex = 7;
@@ -214,7 +230,7 @@
 			// 
 			// btnRefreshEdges
 			// 
-			this.btnRefreshEdges.Location = new System.Drawing.Point(319, 18);
+			this.btnRefreshEdges.Location = new System.Drawing.Point(287, 20);
 			this.btnRefreshEdges.Name = "btnRefreshEdges";
 			this.btnRefreshEdges.Size = new System.Drawing.Size(89, 23);
 			this.btnRefreshEdges.TabIndex = 6;
@@ -224,7 +240,7 @@
 			// 
 			// btnFindGhostCalls
 			// 
-			this.btnFindGhostCalls.Location = new System.Drawing.Point(84, 47);
+			this.btnFindGhostCalls.Location = new System.Drawing.Point(52, 47);
 			this.btnFindGhostCalls.Name = "btnFindGhostCalls";
 			this.btnFindGhostCalls.Size = new System.Drawing.Size(93, 23);
 			this.btnFindGhostCalls.TabIndex = 2;
@@ -236,7 +252,7 @@
 			// 
 			this.cmbEdges.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbEdges.FormattingEnabled = true;
-			this.cmbEdges.Location = new System.Drawing.Point(84, 20);
+			this.cmbEdges.Location = new System.Drawing.Point(52, 20);
 			this.cmbEdges.Name = "cmbEdges";
 			this.cmbEdges.Size = new System.Drawing.Size(229, 21);
 			this.cmbEdges.TabIndex = 1;
@@ -245,7 +261,7 @@
 			// lblEdges
 			// 
 			this.lblEdges.AutoSize = true;
-			this.lblEdges.Location = new System.Drawing.Point(38, 23);
+			this.lblEdges.Location = new System.Drawing.Point(6, 23);
 			this.lblEdges.Name = "lblEdges";
 			this.lblEdges.Size = new System.Drawing.Size(40, 13);
 			this.lblEdges.TabIndex = 0;
@@ -259,7 +275,7 @@
 			this.lstLog.FormattingEnabled = true;
 			this.lstLog.Location = new System.Drawing.Point(2, 246);
 			this.lstLog.Name = "lstLog";
-			this.lstLog.Size = new System.Drawing.Size(731, 277);
+			this.lstLog.Size = new System.Drawing.Size(706, 277);
 			this.lstLog.TabIndex = 2;
 			this.lstLog.DoubleClick += new System.EventHandler(this.lstLog_DoubleClick);
 			// 
@@ -532,7 +548,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(734, 526);
+			this.ClientSize = new System.Drawing.Size(709, 526);
 			this.Controls.Add(this.chkVerboseLogging);
 			this.Controls.Add(this.btnSaveLog);
 			this.Controls.Add(this.gbCounters);
@@ -610,6 +626,7 @@
 		private System.Windows.Forms.Label lblDisconnectedCalls;
 		private System.Windows.Forms.Button btnSaveLog;
 		private System.Windows.Forms.CheckBox chkVerboseLogging;
+		private System.Windows.Forms.CheckBox chkConsiderAllParticipantsSessions;
 	}
 }
 
