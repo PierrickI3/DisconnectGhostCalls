@@ -3,7 +3,10 @@
 This tool is used to disconnect *Ghost Calls* (calls that might get stuck due to PureCloud failing to reach an edge).
 This tool should *ONLY* be used when absolutely required.
 
-> A `Ghost Call` is a call that is less than 24 hours old, not disconnected which last participant is on the selected offline (as seen by PureCloud) edge
+> A `Ghost Call` is a call that is
+> * Less than 24 hours old
+> * NOT disconnected
+> * Last [Participant](https://developer.mypurecloud.com/api/rest/v2/conversations/overview.html)'s last session is on the selected offline edge (as seen by the PureCloud API)
 
 ![Screenshot](ScreenshotMainApp.jpg)
 
@@ -25,7 +28,6 @@ This tool should *ONLY* be used when absolutely required.
 * Admin rights to your local machine
 * Access to PureCloud (https://xxx.mypurecloud.xx)
 * An OAuth Client Credentials client id & client secret
-
 
 ## User Guide
 
