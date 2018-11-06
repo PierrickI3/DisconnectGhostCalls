@@ -10,7 +10,7 @@ namespace DisconnectCalls
 
 		public override string ToString()
 		{
-			return Name + " (" + (Online == true ? "Online" : "Offline") + ")";
+			return Name + " (" + (Online == true ? "Online" : "OFFLINE") + ")";
 		}
 
 		public EdgeInfo(string id, string name, bool? online)
