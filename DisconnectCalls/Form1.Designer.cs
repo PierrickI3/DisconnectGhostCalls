@@ -150,7 +150,6 @@
 			this.txtClientSecret.PasswordChar = '*';
 			this.txtClientSecret.Size = new System.Drawing.Size(220, 20);
 			this.txtClientSecret.TabIndex = 3;
-			this.txtClientSecret.Text = "zDvZkHAVNz9Nlrz5dizugfM8UTZQJItYtHU0BywvQjA";
 			// 
 			// lblClientSecret
 			// 
@@ -167,7 +166,6 @@
 			this.txtClientId.Name = "txtClientId";
 			this.txtClientId.Size = new System.Drawing.Size(220, 20);
 			this.txtClientId.TabIndex = 1;
-			this.txtClientId.Text = "a9e25c55-e58c-47b6-9c01-0cd4abb8bd22";
 			// 
 			// lblClientId
 			// 
